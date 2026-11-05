@@ -1,0 +1,92 @@
+/* Padrão de Cores e Tipografia - Arquitetura Geral */
+:root {
+    --cor-principal: #2563EB;
+    --cor-secundaria: #F59E0B;
+    --fundo: #F8FAFC;
+    --texto: #1E293B;
+    --sucesso: #16A34A;
+    --erro: #DC2626;
+    
+    /* Fontes sugeridas: Poppins, Roboto ou Inter */
+    --fonte-padrao: 'Poppins', 'Roboto', 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--fonte-padrao);
+    background-color: var(--fundo);
+    color: var(--texto);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--cor-principal);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--cor-secundaria);
+}
+
+main {
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    border-left: 5px solid var(--cor-principal);
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--fonte-padrao);
+}
+
+.btn-success {
+    background-color: var(--sucesso);
+}
+
+.btn-error {
+    background-color: var(--erro);
+}
+
+footer {
+    background-color: var(--texto);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
