@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoções SLS - Área do Comerciante</title>
+    <!-- O link agora aponta para o CSS central (o mesmo do index.html) -->
+    <link rel="stylesheet" href="../css/geral.css">
+
+    <!-- CSS Específico da Área do Comerciante, usando as variáveis globais -->
+    <style>
+        /* Os resets e o header global já estão sendo aplicados pelo geral.css. */
+        
+        /* Ajuste do Header local para condizer com o padrão. */
+        .comerciante-header {
+            background-color: var(--cor-principal);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .comerciante-nav {
+            background-color: #1e3a8a; /* Um tom ligeiramente mais escuro que a cor principal para contraste */
+            padding: 15px;
+            text-align: center;
+        }
+
+        .comerciante-nav button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: var(--fonte-padrao);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .comerciante-nav button:hover {
+            background-color: var(--cor-secundaria);
+            border-color: var(--cor-secundaria);
+        }
+
+        /* Container Principal Específico */
+        .comerciante-main {
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 15px;
+        }
+
+        /* Seções de Formulários/Painel (aproveitando o estilo ".card" global, mas ajustando para ocultar) */
+        .comerciante-section {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--cor-principal);
+        }
+
+        .comerciante-section.ativa {
+            display: block;
+        }
+
+        h2 {
+            color: var(--cor-principal);
+            margin-top: 0;
+        }
+
+        /* Estilização de Formulários */
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--texto);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: var(--fonte-padrao);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Botões Específicos do CRUD */
+        /* O .salvar usa a classe .btn-success do global como inspiração */
+        .salvar {
+            background-color: var(--cor-principal);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: var(--fonte-padrao);
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        
+        .salvar:hover {
+            opacity: 0.9;
+        }
+
+        .editar {
+            background-color: var(--cor-secundaria);
+            color: white;
+            border: none;
+            padding: 9px 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: var(--fonte-padrao);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .excluir {
+            background-color: var(--erro);
+            color: white;
+            border: none;
+            padding: 9px 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: var(--fonte-padrao);
+            font-weight: bold;
+        }
+        
+        /* O estilo do card dos produtos aproveita regras gerais */
+        .produto-card {
+            border: 1px solid #cbd5e1;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 15px;
+            background-color: #f8fafc;
+        }
+        
+        .produto-card img {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cabeçalho Global (Mesmo do index.html) -->
+    <header>
+        <h1>Promoções SLS</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="promocoes.html">Promoções</a></li>
+                <li><a href="estabelecimentos.html">Estabelecimentos</a></li>
+                <li><a href="busca.html">Busca</a></li>
+                <li><a href="mapa.html">Mapa</a></li>
+                <li><a href="destaques.html">Destaques</a></li>
+                <li><a href="area-comerciante.html">Área do Comerciante</a></li>
+                <li><a href="minha-conta.html">Minha Conta</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Cabeçalho e Navegação Locais do Comerciante -->
+    <div class="comerciante-header">
+        <h2>Painel de Gestão - Área do Comerciante</h2>
+    </div>
+
+    <div class="comerciante-nav">
+        <button onclick="abrir('empresa')">Minha Empresa</button>
+        <button onclick="novo()">Nova Promoção</button>
+        <button onclick="abrir('painel')">Minhas Promoções</button>
+    </div>
+
+    <main class="comerciante-main">
+
+        <section id="empresa" class="comerciante-section ativa">
+            <h2>Cadastro da Empresa</h2>
+
+            <form id="formEmpresa">
+                <label for="nome">Nome da empresa *</label>
+                <input id="nome" required>
+
+                <label for="cnpj">CNPJ *</label>
+                <input id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
+
+                <label for="categoria">Categoria *</label>
+                <select id="categoria" required>
+                    <option value="">Selecione</option>
+                    <option>Alimentação</option>
+                    <option>Moda e Vestuário</option>
+                    <option>Eletrônicos</option>
+                    <option>Saúde e Beleza</option>
+                    <option>Supermercados</option>
+                    <option>Outros</option>
+                </select>
+
+                <label for="endereco">Endereço *</label>
+                <input id="endereco" required>
+
+                <label for="telefone">Telefone *</label>
+                <input id="telefone" type="tel" required>
+
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" type="tel">
+
+                <label for="instagram">Instagram</label>
+                <input id="instagram" placeholder="@suaempresa">
+
+                <label for="descricaoEmpresa">Descrição</label>
+                <textarea id="descricaoEmpresa"></textarea>
+
+                <button class="salvar" type="submit">Salvar Empresa</button>
+            </form>
+        </section>
+
+        <section id="promocao" class="comerciante-section">
+            <h2 id="tituloForm">Cadastro de Promoção</h2>
+
+            <form id="formPromocao">
+                <input type="hidden" id="indice" value="-1">
+
+                <label for="produto">Produto *</label>
+                <input id="produto" required>
+
+                <label for="descricaoProduto">Descrição *</label>
+                <textarea id="descricaoProduto" required></textarea>
+
+                <label for="normal">Preço normal (R$) *</label>
+                <input id="normal" type="number" min="0.01" step="0.01" required>
+
+                <label for="promo">Preço promocional (R$) *</label>
+                <input id="promo" type="number" min="0.01" step="0.01" required>
+
+                <label for="categoriaProduto">Categoria *</label>
+                <select id="categoriaProduto" required>
+                    <option value="">Selecione</option>
+                    <option>Alimentação</option>
+                    <option>Moda e Vestuário</option>
+                    <option>Eletrônicos</option>
+                    <option>Saúde e Beleza</option>
+                    <option>Supermercados</option>
+                    <option>Outros</option>
+                </select>
+
+                <label for="inicio">Data inicial *</label>
+                <input id="inicio" type="date" required>
+
+                <label for="fim">Data final *</label>
+                <input id="fim" type="date" required>
+
+                <label for="imagem">Imagem do produto</label>
+                <input id="imagem" type="file" accept="image/*">
+
+                <button class="salvar" type="submit">Salvar Promoção</button>
+                <button class="salvar" style="background-color: #64748b;" type="button" onclick="novo()">Limpar formulário</button>
+            </form>
+        </section>
+
+        <section id="painel" class="comerciante-section">
+            <h2>Minha Empresa</h2>
+            <div id="dadosEmpresa">Nenhuma empresa cadastrada.</div>
+
+            <hr style="margin: 25px 0; border: 1px solid #e2e8f0;">
+
+            <h2>Minhas Promoções</h2>
+            <button class="salvar" onclick="novo()">+ Nova Promoção</button>
+
+            <div id="lista"></div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé Global -->
+    <footer>
+        <p>&copy; 2026 Promoções SLS. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        let empresa = JSON.parse(localStorage.getItem("luno_empresa") || "null");
+        let promocoes = JSON.parse(localStorage.getItem("luno_promocoes") || "[]");
+
+        function persistir() {
+            localStorage.setItem("luno_empresa", JSON.stringify(empresa));
+            localStorage.setItem("luno_promocoes", JSON.stringify(promocoes));
+        }
+
+        function abrir(id) {
+            document.querySelectorAll(".comerciante-section").forEach(s => {
+                s.classList.remove("ativa");
+            });
+
+            document.getElementById(id).classList.add("ativa");
+
+            if (id === "painel") atualizarPainel();
+            if (id === "empresa") preencherEmpresa();
+        }
+
+        function validarCNPJ(valor) {
+            const c = valor.replace(/\D/g, "");
+            if (c.length !== 14 || /^(\d){13}$/.test(c)) return false;
+
+            function digito(base, pesos) {
+                const soma = pesos.reduce((s, p, i) => s + Number(base[i]) * p, 0);
+                const r = soma % 11;
+                return r < 2 ? 0 : 11 - r;
+            }
+
+            const d1 = digito(c, [5,4,3,2,9,8,7,6,5,4,3,2]);
+            const parcial = c.substring(0, 12) + d1;
+            const d2 = digito(parcial, [6,5,4,3,2,9,8,7,6,5,4,3,2]);
+
+            return c === c.substring(0, 12) + d1 + d2;
+        }
+
+        document.getElementById("formEmpresa").addEventListener("submit", e => {
+            e.preventDefault();
+
+            if (!validarCNPJ(document.getElementById("cnpj").value)) {
+                alert("Digite um CNPJ válido.");
+                return;
+            }
+
+            empresa = {
+                nome: document.getElementById("nome").value.trim(),
+                cnpj: document.getElementById("cnpj").value.trim(),
+                categoria: document.getElementById("categoria").value,
+                endereco: document.getElementById("endereco").value.trim(),
+                telefone: document.getElementById("telefone").value.trim(),
+                whatsapp: document.getElementById("whatsapp").value.trim(),
+                instagram: document.getElementById("instagram").value.trim(),
+                descricao: document.getElementById("descricaoEmpresa").value.trim()
+            };
+
+            persistir();
+            alert("Empresa cadastrada com sucesso!");
+            atualizarPainel();
+        });
+
+        function preencherEmpresa() {
+            if (!empresa) return;
+
+            document.getElementById("nome").value = empresa.nome;
+            document.getElementById("cnpj").value = empresa.cnpj;
+            document.getElementById("categoria").value = empresa.categoria;
+            document.getElementById("endereco").value = empresa.endereco;
+            document.getElementById("telefone").value = empresa.telefone;
+            document.getElementById("whatsapp").value = empresa.whatsapp;
+            document.getElementById("instagram").value = empresa.instagram;
+            document.getElementById("descricaoEmpresa").value = empresa.descricao;
+        }
+
+        function novo() {
+            document.getElementById("formPromocao").reset();
+            document.getElementById("indice").value = "-1";
+            document.getElementById("tituloForm").textContent = "Cadastro de Promoção";
+            abrir("promocao");
+        }
+
+        document.getElementById("formPromocao").addEventListener("submit", async e => {
+            e.preventDefault();
+
+            const normal = Number(document.getElementById("normal").value);
+            const promo = Number(document.getElementById("promo").value);
+            const inicio = document.getElementById("inicio").value;
+            const fim = document.getElementById("fim").value;
+            const indice = Number(document.getElementById("indice").value);
+
+            if (promo <= 0 || normal <= 0 || promo >= normal) {
+                alert("O preço promocional deve ser menor que o preço normal.");
+                return;
+            }
+
+            if (fim < inicio) {
+                alert("A data final deve ser igual ou posterior à data inicial.");
+                return;
+            }
+
+            let foto = indice >= 0 ? promocoes[indice].imagem : "";
+            const arquivo = document.getElementById("imagem").files[0];
+
+            if (arquivo) {
+                if (!arquivo.type.startsWith("image/") || arquivo.size > 2 * 1024 * 1024) {
+                    alert("Escolha uma imagem válida de até 2 MB.");
+                    return;
+                }
+
+                foto = await new Promise((resolve, reject) => {
+                    const leitor = new FileReader();
+                    leitor.onload = () => resolve(leitor.result);
+                    leitor.onerror = reject;
+                    leitor.readAsDataURL(arquivo);
+                }).catch(() => null);
+
+                if (!foto) {
+                    alert("Não foi possível carregar a imagem.");
+                    return;
+                }
+            }
+
+            const p = {
+                produto: document.getElementById("produto").value.trim(),
+                descricao: document.getElementById("descricaoProduto").value.trim(),
+                normal,
+                promo,
+                categoria: document.getElementById("categoriaProduto").value,
+                inicio,
+                fim,
+                imagem: foto
+            };
+
+            if (indice >= 0) {
+                promocoes[indice] = p;
+            } else {
+                promocoes.push(p);
+            }
+
+            persistir();
+            novo();
+            atualizarPainel();
+            abrir("painel");
+            alert("Promoção salva com sucesso!");
+        });
+
+        function editar(i) {
+            const p = promocoes[i];
+
+            document.getElementById("produto").value = p.produto;
+            document.getElementById("descricaoProduto").value = p.descricao;
+            document.getElementById("normal").value = p.normal;
+            document.getElementById("promo").value = p.promo;
+            document.getElementById("categoriaProduto").value = p.categoria;
+            document.getElementById("inicio").value = p.inicio;
+            document.getElementById("fim").value = p.fim;
+            document.getElementById("indice").value = i;
+            document.getElementById("tituloForm").textContent = "Editar Promoção";
+
+            abrir("promocao");
+        }
+
+        function excluir(i) {
+            if (confirm("Deseja excluir esta promoção?")) {
+                promocoes.splice(i, 1);
+                persistir();
+                atualizarPainel();
+            }
+        }
+
+        function atualizarPainel() {
+            const dados = document.getElementById("dadosEmpresa");
+            dados.replaceChildren();
+
+            if (empresa) {
+                const nome = document.createElement("h3");
+                nome.textContent = empresa.nome;
+                nome.style.color = "var(--texto)";
+
+                const categoria = document.createElement("p");
+                categoria.innerHTML = "<strong>Categoria:</strong> " + empresa.categoria;
+
+                const endereco = document.createElement("p");
+                endereco.innerHTML = "<strong>Endereço:</strong> " + empresa.endereco;
+
+                dados.append(nome, categoria, endereco);
+            } else {
+                dados.textContent = "Nenhuma empresa cadastrada.";
+            }
+
+            const lista = document.getElementById("lista");
+            lista.replaceChildren();
+
+            if (!promocoes.length) {
+                lista.textContent = "Nenhuma promoção cadastrada.";
+                return;
+            }
+
+            promocoes.forEach((p, i) => {
+                const card = document.createElement("article");
+                card.className = "produto-card";
+
+                const titulo = document.createElement("h3");
+                titulo.textContent = p.produto;
+                titulo.style.color = "var(--texto)";
+                titulo.style.marginTop = "0";
+
+                const descricao = document.createElement("p");
+                descricao.textContent = p.descricao;
+
+                const precoNormal = document.createElement("p");
+                precoNormal.innerHTML = "<strong>Preço normal:</strong> R$ " + p.normal.toFixed(2).replace(".", ",");
+
+                const precoPromo = document.createElement("p");
+                precoPromo.innerHTML = "<strong style='color: var(--sucesso)'>Preço promocional:</strong> R$ " + p.promo.toFixed(2).replace(".", ",");
+
+                const validade = document.createElement("p");
+                validade.innerHTML = "<strong>Validade:</strong> " + p.inicio + " até " + p.fim;
+
+                card.append(titulo, descricao, precoNormal, precoPromo, validade);
+
+                if (p.imagem) {
+                    const img = document.createElement("img");
+                    img.src = p.imagem;
+                    img.alt = "Imagem de " + p.produto;
+                    img.style.maxWidth = "200px";
+                    card.appendChild(img);
+                }
+
+                const btnEditar = document.createElement("button");
+                btnEditar.className = "editar";
+                btnEditar.textContent = "Editar";
+                btnEditar.onclick = () => editar(i);
+
+                const btnExcluir = document.createElement("button");
+                btnExcluir.className = "excluir";
+                btnExcluir.textContent = "Excluir";
+                btnExcluir.onclick = () => excluir(i);
+
+                card.append(btnEditar, btnExcluir);
+                lista.appendChild(card);
+            });
+        }
+
+        preencherEmpresa();
+        atualizarPainel();
+    </script>
+</body>
+</html>
