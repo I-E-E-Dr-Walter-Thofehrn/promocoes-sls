@@ -9,7 +9,7 @@ Cada aluno é responsável por um módulo específico do sistema. O desenvolvime
 * **Luis** - Página Inicial
 * **Renato** - Promoções
 * **Pablo** - Estabelecimentos
-* **Jeferson da Coréia** - Busca e Filtros
+* **Jeferson** - Busca e Filtros
 * **Julio** - Mapa
 * **Rafaela** - Área do Comerciante
 * **Monique** - Usuário e Interações
