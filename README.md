@@ -2,11 +2,11 @@
 
 Este repositório contém o código-fonte do projeto colaborativo **Promoções SLS**, desenvolvido pela turma LP2 de Programação em WEB (HTML, CSS e JS).
 
-## Objetivo Geral
+## 🎯 Objetivo Geral
 
 Desenvolver uma plataforma web acessível, intuitiva e colaborativa, destinada à comunidade de São Lourenço do Sul, com o propósito de promover a economia familiar por meio da divulgação, pesquisa e comparação de preços, ofertas e promoções disponibilizadas pelo comércio local. A iniciativa busca auxiliar os consumidores na tomada de decisões de compra mais conscientes e econômicas, especialmente na aquisição de produtos essenciais à subsistência, contribuindo para a redução das despesas familiares, a valorização do comércio lourenciano e o fortalecimento da economia local.
 
-## Objetivos Específicos
+## 📋 Objetivos Específicos
 
 1. Facilitar o acesso à informação: disponibilizar ofertas e preços de produtos comercializados nos estabelecimentos locais.
 2. Promover a economia familiar: permitir a comparação de preços entre diferentes estabelecimentos, identificando as opções mais vantajosas.
